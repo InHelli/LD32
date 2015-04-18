@@ -14,8 +14,8 @@ class Main extends Sprite
 	var inited:Bool;
 
 	/* ENTRY POINT */
-	static var currentLevel:Level;
-	static var me:Main;
+	static public var currentLevel:Level;
+	static public var me:Main;
 	function resize(e) 
 	{
 		if (!inited) init();
@@ -30,6 +30,9 @@ class Main extends Sprite
 		// (your code here)
 		
 		currentLevel = new Level();
+		this.addChild(currentLevel);
+		
+		
 		// Stage:
 		// stage.stageWidth x stage.stageHeight @ stage.dpiScale
 		
@@ -39,6 +42,8 @@ class Main extends Sprite
 
 	/* SETUP */
 
+	
+	
 	public function new() 
 	{
 		super();	

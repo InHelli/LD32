@@ -1,4 +1,6 @@
 package ;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 import openfl.display.Sprite;
 import Main;
 import openfl.events.KeyboardEvent;
@@ -14,12 +16,17 @@ class Hero extends Sprite implements ActiveObject
 	public var localX:Float;
 	public var localY:Float;
 	public var degToMouse:Float;
+	public var herobitmapData:Bitmap;
+	public var shadow:Sprite;
+	public var size:Float = 30;
+	//public var localRotation:Float;
 	public function new() 
 	{
 		super();
-		this.scaleY = 0.4;
+		shadow = new Sprite();
 		keys = new Map<Int,Bool>();
 		speed = 1;
+		
 	}
 	
 	/* INTERFACE ActiveObject */
@@ -27,8 +34,19 @@ class Hero extends Sprite implements ActiveObject
 	public function init(x:Int,y:Int):Void 
 	{
 		
+		this.addChild(shadow);
+		this.addChild(herobitmapData = new Bitmap(new BitmapData(70, 100, false, 0x00ff00)));
+		
+		
+		herobitmapData.x = -herobitmapData.width / 2;
+		herobitmapData.y = -herobitmapData.height;
+		shadow.scaleY = 0.4;
+		
+		
 		this.x = localX = x;
 		this.y = localY = y;
+		
+		
 		Main.currentLevel.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey.bind(true));
@@ -46,7 +64,7 @@ class Hero extends Sprite implements ActiveObject
 	function onMouseDown(e:MouseEvent)
 	{
 		
-		var eff:Effect = new Effect(degToMouse,1,20);
+		var eff:Effect = new Effect(degToMouse,3,8);
 		eff.init(Math.round(this.x),Math.round(this.y));
 	}
 	
@@ -69,15 +87,17 @@ class Hero extends Sprite implements ActiveObject
 		stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKey.bind(true));
 		stage.removeEventListener(KeyboardEvent.KEY_UP, onKey.bind(false));
 		stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-		graphics.clear();
+		shadow.graphics.clear();
+		this.removeChild(shadow);
+		this.removeChild(herobitmapData);
 	}
 	
 	public function update():Void 
 	{
-		graphics.clear();
-		graphics.beginFill(0x888888);
-		graphics.drawCircle(0, 0, 20);
-		graphics.endFill();
+		shadow.graphics.clear();
+		shadow.graphics.beginFill(0x888888);
+		shadow.graphics.drawCircle(0, 0, size);
+		shadow.graphics.endFill();
 		move();
 	}
 	function move()

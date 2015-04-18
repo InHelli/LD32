@@ -3,6 +3,7 @@ package ;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.Lib;
+import openfl.display.FPS;
 
 /**
  * ...
@@ -32,6 +33,7 @@ class Main extends Sprite
 		currentLevel = new Level();
 		this.addChild(currentLevel);
 		
+		this.addChild(new FPS());
 		
 		// Stage:
 		// stage.stageWidth x stage.stageHeight @ stage.dpiScale

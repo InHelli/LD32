@@ -13,10 +13,14 @@ class Level extends Sprite
 	public static var currentHero:Hero;
 	public var mouse_X:Float;
 	public var mouse_Y:Float;
+	public var bullets:Array<Bullet>;
+	public var effects:Array<Effect>;
 	public function new() 
 	{
 		super();
 		activeObjects = [];
+		bullets = [];
+		effects = [];
 		this.addEventListener(Event.ADDED,added);
 	}
 	
@@ -41,6 +45,8 @@ class Level extends Sprite
 		mouse_Y = e.stageY;
 	}
 	
+	
+	
 	function onUpdate(e:Event)
 	{
 		
@@ -49,6 +55,23 @@ class Level extends Sprite
 			obj.update();
 		}
 		
+		somefunc();
+	}
+	
+	var frame:Int = 0;
+	var degToHero:Float;
+	function somefunc()
+	{
+		frame++;
+		if (frame % 120 == 0)
+		{
+			var TX:Float = 400;
+			var TY:Float = 240;
+			var degToHero:Float = MyMath.getAngle(TX, TY, currentHero.x, currentHero.y);
+			
+			var bul:Bullet = new Bullet(degToHero, 2, 4000);
+			bul.init(Math.round(TX),Math.round(TY));
+		}
 	}
 	
 	function removed(e:Event)

@@ -11,11 +11,13 @@ class PictersSource
 	public static var shieldArray:Array<BitmapData>;
 	public static var birdArray:Array<BitmapData>;
 	public static var eagleArray:Array<BitmapData>;
+	public static var tittle:Array<BitmapData>;
 	static public function load()
 	{
 		shieldArray = [];
 		birdArray = [];
 		eagleArray = [];
+		tittle = [];
 		shieldArray.push(Assets.getBitmapData("img/Shield/0.png")); //0
 		shieldArray.push(Assets.getBitmapData("img/Shield/1.png")); //1
 		//shieldArray.push(Assets.getBitmapData("img/Shield/2.png"));
@@ -32,6 +34,8 @@ class PictersSource
 		eagleArray.push(Assets.getBitmapData("img/Enemys/eagle2.png"));//1
 		eagleArray.push(Assets.getBitmapData("img/Enemys/eagle3.png"));//2
 		eagleArray.push(Assets.getBitmapData("img/Enemys/eagle2.png"));//3
+		
+		tittle.push(Assets.getBitmapData("img/bush.png"));//0
 	}
 	
 }

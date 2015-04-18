@@ -24,7 +24,7 @@ class Hero extends Sprite implements ActiveObject
 	public var shield:Bitmap;
 	var shieldSize:Float = 1.3;
 	public var offset_X = 0;
-	public var offset_Y = -15;
+	public var offset_Y = 0;
 	var shieldSpr:Sprite;
 	public var mouseStep:Int;
 	public var moveRotation:Float;

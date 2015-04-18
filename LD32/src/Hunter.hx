@@ -64,7 +64,7 @@ class Hunter extends Sprite implements ActiveObject
 			{
 				animstep = 0;
 				pic.x = -pic.bitmapData.width / 2;
-				pic.y = -pic.bitmapData.height / 2;
+				
 			}
 		}
 		
@@ -82,7 +82,7 @@ class Hunter extends Sprite implements ActiveObject
 		
 		if (((MyMath.distance(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y, x, y) < Level.currentHero.size+20)))
 		{
-			
+			localRotation = MyMath.getAngle(localX, localY, Level.currentHero.localX,Level.currentHero.localY);
 			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
 			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep) - localRotation));
 			var differ = MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation));
@@ -156,8 +156,8 @@ class Hunter extends Sprite implements ActiveObject
 		Main.currentLevel.activeObjects.push(this);
 		
 		addChild(shadow);
-		shadow.y = 40;
-		pic.y = -40;
+		shadow.y = 0;
+		pic.y = -80;
 		addChild(pic);
 	}
 	

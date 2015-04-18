@@ -32,6 +32,14 @@ class Level extends Sprite
 		currentHero = new Hero();
 		currentHero.init(400, 280);
 		
+		
+		//==grass
+		for (i in 0...4)
+		{
+			var bush:Tittle = new Tittle();
+			bush.init(Math.round(100+Math.random()*700), Math.round(50+Math.random()*430));
+		}
+		
 		//==Final
 		this.addEventListener(Event.ENTER_FRAME, onUpdate);
 		this.addEventListener(Event.REMOVED_FROM_STAGE, removed);
@@ -64,6 +72,12 @@ class Level extends Sprite
 			if (a.localY > b.localY) return 1;
 			return 0;
 		} );
+		
+		for (i in 0...activeObjects.length)
+		{
+			
+			this.setChildIndex(cast(activeObjects[i],Sprite), i);
+		}
 	}
 	
 	public var frame:Int = 0;
@@ -72,7 +86,7 @@ class Level extends Sprite
 	{
 		
 		
-		if (frame % 200 == 0)
+		if (frame % 100 == 0)
 		{
 			
 			var TX:Float = -20 + Math.random() * 840;
@@ -90,7 +104,7 @@ class Level extends Sprite
 			
 		}
 		
-		if (frame % 400 == 0)
+		if (frame % 300 == 0)
 		{
 			
 			var TX:Float = -20 + Math.random() * 840;
@@ -107,6 +121,9 @@ class Level extends Sprite
 			
 			
 		}
+		
+		
+		
 	}
 	
 	function removed(e:Event)

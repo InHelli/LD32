@@ -9,9 +9,11 @@ import openfl.display.BitmapData;
 class PictersSource
 {
 	public static var shieldArray:Array<BitmapData>;
+	public static var birdArray:Array<BitmapData>;
 	static public function load()
 	{
-		shieldArray = new Array<BitmapData>();
+		shieldArray = [];
+		birdArray = [];
 		shieldArray.push(Assets.getBitmapData("img/Shield/0.png")); //0
 		shieldArray.push(Assets.getBitmapData("img/Shield/1.png")); //1
 		//shieldArray.push(Assets.getBitmapData("img/Shield/2.png"));
@@ -20,6 +22,8 @@ class PictersSource
 		shieldArray.push(Assets.getBitmapData("img/Shield/6.png")); //3
 		shieldArray.push(Assets.getBitmapData("img/Shield/7.png")); //4
 		//shieldArray.push(Assets.getBitmapData("img/Shield/8.png"));
+		birdArray.push(Assets.getBitmapData("img/Enemys/1.png"));//0
+		birdArray.push(Assets.getBitmapData("img/Enemys/2.png"));//1
 	}
 	
 }

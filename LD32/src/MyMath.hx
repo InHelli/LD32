@@ -169,5 +169,14 @@ class MyMath
 		{
 			return Math.round((value-16) / 32);
 		}
-	
+		/**
+		 * 
+		 * 
+		 */
+		public static function betweenAnglesDeg(a:Float, b:Float):Float
+		{
+			var angle:Float = Math.abs(a - b);
+			if (angle > 180) angle = 360 - angle;
+			return angle;
+		}
 }

@@ -23,9 +23,12 @@ class Hero extends Sprite implements ActiveObject
 	public var wallking:Bool;
 	public var shield:Bitmap;
 	var shieldSize:Float = 1.3;
+	public var offset_X = 0;
 	public var offset_Y = -15;
 	var shieldSpr:Sprite;
-	var mouseStep:Float;
+	public var mouseStep:Int;
+	public var moveRotation:Float;
+	public var heroPoint:Point;
 	//public var localRotation:Float;
 	public function new() 
 	{
@@ -36,6 +39,7 @@ class Hero extends Sprite implements ActiveObject
 		speed = 2;
 		shieldSpr = new Sprite();
 		shieldSpr.addChild(shield);
+		heroPoint = new Point();
 	}
 	
 	/* INTERFACE ActiveObject */
@@ -65,7 +69,7 @@ class Hero extends Sprite implements ActiveObject
 	{
 		herobitmapData.x = -herobitmapData.width / 2;
 		herobitmapData.y = -herobitmapData.height;
-		herobitmapData.z = 0;
+		
 		shadow.scaleY = 0.4;
 		
 		
@@ -87,7 +91,7 @@ class Hero extends Sprite implements ActiveObject
 			mouseStep = 0;
 		}
 		
-		trace(mouseStep);
+		//trace(mouseStep);
 		
 		switch(mouseStep)
 		{
@@ -166,6 +170,12 @@ class Hero extends Sprite implements ActiveObject
 		shadow.graphics.clear();
 		this.removeChild(shadow);
 		this.removeChild(herobitmapData);
+		shieldSpr.removeChild(shield);
+		removeChild(shieldSpr);
+	}
+	public function getShieldAngel(step:Int):Float
+	{
+		return MyMath.toRadians(45+ mouseStep * 45);
 	}
 	
 	public function update():Void 
@@ -178,7 +188,8 @@ class Hero extends Sprite implements ActiveObject
 	}
 	function move()
 	{
-		
+		var oldX:Float = localX;
+		var oldY:Float = localY;
 		if (keys[87]) 
 		{
 			localY -= speed;
@@ -196,9 +207,12 @@ class Hero extends Sprite implements ActiveObject
 		{
 			localX += speed;
 		}
-		
+		moveRotation = MyMath.getAngle(oldX, oldY, localX, localY);
+		//trace(MyMath.toDegrees(moveRotation));
 		this.x = localX;
 		this.y = localY;
+		heroPoint.x = localX + offset_X;
+		heroPoint.y = localY + offset_Y;
 	}
 	
 }

@@ -47,16 +47,26 @@ class Bullet extends Sprite implements ActiveObject
 		lifetime--;
 		if (lifetime < 0) this.free();
 		
-		if (((MyMath.distance(Level.currentHero.x, Level.currentHero.y+Level.currentHero.offset_Y, x, y) < Level.currentHero.size))&&!friendly)
+		if (((MyMath.distance(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y, x, y) < Level.currentHero.size))&&!friendly)
 		{
 			
-			var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
+			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
+			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep) - localRotation));
+			var differ = MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation));
 			
-			if (differ>135)
+			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
+			if (differ>=136)
 			{
+				
 				var herDeg = Level.currentHero.degToMouse;
-				localRotation = (herDeg + MyMath.toRadians(180-differ));
-				if(Level.currentHero.wallking)speed += Level.currentHero.speed;
+				localRotation = (herDeg + MyMath.toRadians(180 - differ));
+				var differMove = MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.moveRotation), MyMath.toDegrees(localRotation));
+				//trace(differMove);
+				if (Level.currentHero.wallking && differMove<46)
+				{
+					
+					speed += Level.currentHero.speed;
+				}
 				friendly = true;
 			}
 			else if(!friendly)

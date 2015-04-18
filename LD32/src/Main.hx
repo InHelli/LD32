@@ -29,7 +29,7 @@ class Main extends Sprite
 		inited = true;
 		me = this;
 		// (your code here)
-		
+		PictersSource.load();
 		currentLevel = new Level();
 		this.addChild(currentLevel);
 		

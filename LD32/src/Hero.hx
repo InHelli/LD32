@@ -5,6 +5,7 @@ import openfl.display.Sprite;
 import Main;
 import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
+import openfl.geom.Point;
 /**
  * ...
  * @author InHelli
@@ -12,21 +13,28 @@ import openfl.events.MouseEvent;
 class Hero extends Sprite implements ActiveObject
 {
 	var keys:Map<Int,Bool>;
-	var speed:Float;
+	public var speed:Float;
 	public var localX:Float;
 	public var localY:Float;
 	public var degToMouse:Float;
 	public var herobitmapData:Bitmap;
 	public var shadow:Sprite;
 	public var size:Float = 30;
+	public var wallking:Bool;
+	public var shield:Bitmap;
+	var shieldSize:Float = 1.3;
+	public var offset_Y = -10;
+	var shieldSpr:Sprite;
 	//public var localRotation:Float;
 	public function new() 
 	{
 		super();
 		shadow = new Sprite();
+		shield = new Bitmap(PictersSource.shieldArray[0]);
 		keys = new Map<Int,Bool>();
-		speed = 1;
-		
+		speed = 2;
+		shieldSpr = new Sprite();
+		shieldSpr.addChild(shield);
 	}
 	
 	/* INTERFACE ActiveObject */
@@ -35,17 +43,14 @@ class Hero extends Sprite implements ActiveObject
 	{
 		
 		this.addChild(shadow);
-		this.addChild(herobitmapData = new Bitmap(new BitmapData(70, 100, false, 0x00ff00)));
+		this.addChild(herobitmapData = new Bitmap(new BitmapData(10, 10, false, 0x00ff00)));
+		this.addChild(shieldSpr);
 		
-		
-		herobitmapData.x = -herobitmapData.width / 2;
-		herobitmapData.y = -herobitmapData.height;
-		shadow.scaleY = 0.4;
-		
+		workSprite();
 		
 		this.x = localX = x;
 		this.y = localY = y;
-		
+		wallking = false;
 		
 		Main.currentLevel.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
@@ -55,10 +60,74 @@ class Hero extends Sprite implements ActiveObject
 		stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 	}
 	
+	function workSprite()
+	{
+		herobitmapData.x = -herobitmapData.width / 2;
+		herobitmapData.y = -herobitmapData.height;
+		herobitmapData.z = 0;
+		shadow.scaleY = 0.4;
+		
+		
+		shield.scaleX = shield.scaleY = shieldSize;
+		shieldSpr.x = - shield.width / 2;
+		shieldSpr.y = - shield.height+size*0.4;
+	}
 	
 	function onMouseMove(e:MouseEvent)
 	{
-		degToMouse = MyMath.getAngle(this.x,this.y,Main.currentLevel.mouse_X,Main.currentLevel.mouse_Y);
+		degToMouse = MyMath.getAngle(this.x, this.y, Main.currentLevel.mouse_X, Main.currentLevel.mouse_Y, true);
+		var mouseStep:Float;
+		if (degToMouse > 0.39)
+		{
+			mouseStep = Math.round(Math.abs(MyMath.toDegrees(degToMouse)-45)/45);
+		}
+		else
+		{
+			mouseStep = 0;
+		}
+		
+		
+		
+		switch(mouseStep)
+		{
+			case 0:shield.bitmapData = PictersSource.shieldArray[1];
+			case 1:shield.bitmapData = PictersSource.shieldArray[0];
+			case 2:shield.bitmapData = PictersSource.shieldArray[1];
+			case 3:shield.bitmapData = PictersSource.shieldArray[4];
+			case 4:shield.bitmapData = PictersSource.shieldArray[3];
+			case 5:shield.bitmapData = PictersSource.shieldArray[2];
+			case 6:shield.bitmapData = PictersSource.shieldArray[3];
+			case 7:shield.bitmapData = PictersSource.shieldArray[4];
+		}
+		
+		if (mouseStep == 1 || mouseStep == 5)
+		{
+			shieldSpr.scaleX = 1;
+			//shieldSpr.x = -10;
+		}
+		else if (mouseStep >= 2 && mouseStep <= 4)
+		{
+			shieldSpr.scaleX = -1;
+			//shieldSpr.x = 10;
+		}
+		else
+		{
+			shield.scaleX = shieldSize;
+		}
+		
+		if (mouseStep >= 4 && mouseStep <= 6)
+		{
+			//shield.y = - shield.height - size * 0.2;
+			setChildIndex(shieldSpr, 1);
+		}
+		else
+		{
+			//shield.y = - shield.height + size * 0.5;
+			setChildIndex(herobitmapData, 1);
+		}
+		
+		
+		
 	}
 	
 	function onMouseDown(e:MouseEvent)
@@ -70,7 +139,7 @@ class Hero extends Sprite implements ActiveObject
 	
 	function onKey(press:Bool,e:KeyboardEvent)
 	{
-		
+		wallking = press;
 		keys[e.keyCode] = press;
 		
 	}

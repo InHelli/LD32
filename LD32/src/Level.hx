@@ -30,7 +30,7 @@ class Level extends Sprite
 		
 		//==Hero
 		currentHero = new Hero();
-		currentHero.init(100, 100);
+		currentHero.init(400, 280);
 		
 		//==Final
 		this.addEventListener(Event.ENTER_FRAME, onUpdate);
@@ -56,6 +56,14 @@ class Level extends Sprite
 		}
 		
 		somefunc();
+		
+		activeObjects.sort(function(a:ActiveObject, b:ActiveObject):Int
+		{
+			
+			if (a.localY < b.localY) return -1;
+			if (a.localY > b.localY) return 1;
+			return 0;
+		} );
 	}
 	
 	var frame:Int = 0;
@@ -63,13 +71,13 @@ class Level extends Sprite
 	function somefunc()
 	{
 		frame++;
-		if (frame % 120 == 0)
+		if (frame % 60 == 0)
 		{
 			var TX:Float = 400;
 			var TY:Float = 240;
-			var degToHero:Float = MyMath.getAngle(TX, TY, currentHero.x, currentHero.y);
+			var degToHero:Float = MyMath.getAngle(TX, TY, currentHero.x, currentHero.y+Level.currentHero.offset_Y);
 			
-			var bul:Bullet = new Bullet(degToHero, 2, 4000);
+			var bul:Bullet = new Bullet(degToHero, 4, 4000);
 			bul.init(Math.round(TX),Math.round(TY));
 		}
 	}

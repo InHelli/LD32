@@ -19,12 +19,13 @@ class Hero extends Sprite implements ActiveObject
 	public var degToMouse:Float;
 	public var herobitmapData:Bitmap;
 	public var shadow:Sprite;
-	public var size:Float = 30;
+	public var size:Float = 40;
 	public var wallking:Bool;
 	public var shield:Bitmap;
 	var shieldSize:Float = 1.3;
-	public var offset_Y = -10;
+	public var offset_Y = -15;
 	var shieldSpr:Sprite;
+	var mouseStep:Float;
 	//public var localRotation:Float;
 	public function new() 
 	{
@@ -69,14 +70,14 @@ class Hero extends Sprite implements ActiveObject
 		
 		
 		shield.scaleX = shield.scaleY = shieldSize;
-		shieldSpr.x = - shield.width / 2;
-		shieldSpr.y = - shield.height+size*0.4;
+		shield.x = - shield.width / 2;
+		shield.y = - shield.height+size*0.4;
 	}
 	
 	function onMouseMove(e:MouseEvent)
 	{
 		degToMouse = MyMath.getAngle(this.x, this.y, Main.currentLevel.mouse_X, Main.currentLevel.mouse_Y, true);
-		var mouseStep:Float;
+		
 		if (degToMouse > 0.39)
 		{
 			mouseStep = Math.round(Math.abs(MyMath.toDegrees(degToMouse)-45)/45);
@@ -86,7 +87,7 @@ class Hero extends Sprite implements ActiveObject
 			mouseStep = 0;
 		}
 		
-		
+		trace(mouseStep);
 		
 		switch(mouseStep)
 		{
@@ -102,27 +103,33 @@ class Hero extends Sprite implements ActiveObject
 		
 		if (mouseStep == 1 || mouseStep == 5)
 		{
-			shieldSpr.scaleX = 1;
-			//shieldSpr.x = -10;
+			shieldSpr.x = 0;
 		}
 		else if (mouseStep >= 2 && mouseStep <= 4)
 		{
 			shieldSpr.scaleX = -1;
-			//shieldSpr.x = 10;
-		}
-		else
+			shieldSpr.x = -Level.currentHero.size/2;
+		} else
 		{
-			shield.scaleX = shieldSize;
+			shieldSpr.scaleX = 1;
+			shieldSpr.x = Level.currentHero.size/2;
 		}
 		
-		if (mouseStep >= 4 && mouseStep <= 6)
+		//if (mouseStep == 1 || mouseStep == 5) //верх низ
+		
+		if (mouseStep >= 4 && mouseStep <= 6) //верх низ
 		{
-			//shield.y = - shield.height - size * 0.2;
+			shieldSpr.y = -20;
 			setChildIndex(shieldSpr, 1);
+		}
+		else if( mouseStep <= 2)
+		{
+			shieldSpr.y = 5;
+			setChildIndex(herobitmapData, 1);
 		}
 		else
 		{
-			//shield.y = - shield.height + size * 0.5;
+			shieldSpr.y = -10;
 			setChildIndex(herobitmapData, 1);
 		}
 		

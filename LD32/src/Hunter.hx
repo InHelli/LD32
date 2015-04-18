@@ -8,7 +8,7 @@ import openfl.geom.Point;
  * ...
  * @author InHelli
  */
-class Bird extends Sprite implements ActiveObject
+class Hunter extends Sprite implements ActiveObject
 {
 	public var localX:Float;
 	public var localY:Float;
@@ -16,21 +16,20 @@ class Bird extends Sprite implements ActiveObject
 	public var speed:Float;
 	public var target:Point;
 	public var pic:Bitmap;
-	public var animSpeed:Int = 10;
+	public var animSpeed:Int = 5;
 	public var animCooldown:Int = 0;
 	public var animstep:Int = 0;
-	public var globalScale = 0.5;
+	public var globalScale = 1.4;
 	public var stopDown:Int;
 	public var shadow:Sprite;
 	public function new() 
 	{
 		super();
-		speed = 2;
+		speed = 8;
 		target = new Point(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y);
 		pic = new Bitmap();
 		scaleX = scaleY = globalScale;
 		shadow = new Sprite();
-		
 	}
 	
 	/* INTERFACE ActiveObject */
@@ -52,21 +51,20 @@ class Bird extends Sprite implements ActiveObject
 	{
 		shadow.graphics.clear();
 		shadow.graphics.beginFill(0x888888);
-		shadow.graphics.drawCircle(0, 0, globalScale*40);
+		shadow.graphics.drawCircle(0, 0, globalScale*10);
 		shadow.graphics.endFill();
 		
 		animCooldown -= animSpeed;
 		if (animCooldown < 0)
 		{
 			animCooldown += 60;
-			pic.bitmapData = PictersSource.birdArray[animstep];
-			
+			pic.bitmapData = PictersSource.eagleArray[animstep];
 			animstep++;
-			if (animstep >= PictersSource.birdArray.length) 
+			if (animstep >= PictersSource.eagleArray.length) 
 			{
 				animstep = 0;
 				pic.x = -pic.bitmapData.width / 2;
-				
+				pic.y = -pic.bitmapData.height / 2;
 			}
 		}
 		
@@ -82,7 +80,7 @@ class Bird extends Sprite implements ActiveObject
 		
 		
 		
-		if (((MyMath.distance(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y, x, y) < Level.currentHero.size)))
+		if (((MyMath.distance(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y, x, y) < Level.currentHero.size+20)))
 		{
 			
 			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
@@ -140,14 +138,16 @@ class Bird extends Sprite implements ActiveObject
 			case 5: 
 			{
 				target = new Point(x, y);
-				stopDown = 60;
+				
 			}
 		}
+		stopDown = Math.round(50 + Math.random()*90);
 		localRotation = MyMath.getAngle(localX, localY, target.x,target.y);
 	}
 	
 	public function init(x:Int, y:Int):Void 
 	{
+		
 		shadow.scaleY = 0.4;
 		this.x = localX = x;
 		this.y = localY = y;
@@ -156,10 +156,9 @@ class Bird extends Sprite implements ActiveObject
 		Main.currentLevel.activeObjects.push(this);
 		
 		addChild(shadow);
-		shadow.y = 70;
-		pic.y = -70;
+		shadow.y = 40;
+		pic.y = -40;
 		addChild(pic);
-		
 	}
 	
 }

@@ -72,7 +72,7 @@ class Level extends Sprite
 	{
 		
 		
-		if (frame % 120 == 0)
+		if (frame % 200 == 0)
 		{
 			
 			var TX:Float = -20 + Math.random() * 840;
@@ -86,6 +86,24 @@ class Level extends Sprite
 			
 			var bird:Bird = new Bird();
 			bird.init(Math.round(TX),Math.round(TY));
+			
+			
+		}
+		
+		if (frame % 400 == 0)
+		{
+			
+			var TX:Float = -20 + Math.random() * 840;
+			var TY:Float = -20 * Math.round(0 - Math.random());
+			if (Math.random() > 0.5)
+			{
+			 TX= -20 * Math.round(0 - Math.random());
+			 TY= -20 + Math.random() * 520;
+			}
+			//var degToHero:Float = MyMath.getAngle(TX, TY, Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y);
+			
+			var hunter:Hunter = new Hunter();
+			hunter.init(Math.round(TX),Math.round(TY));
 			
 			
 		}

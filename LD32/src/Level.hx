@@ -199,6 +199,12 @@ class Level extends Sprite
 	function removed(e:Event)
 	{
 		this.removeEventListener(Event.ENTER_FRAME, onUpdate);
+		
+		for (i in 0...activeObjects.length)
+		{
+			
+			activeObjects[i].free();
+		}
 		removeChild(fon);
 		removeChild(objects);
 		removeChild(gameInterFace);

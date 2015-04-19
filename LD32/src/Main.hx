@@ -71,7 +71,7 @@ class Main extends Sprite
 		scoresText.textColor = 0x0000FF;
 		scoresText.text = "Your scores: " + Std.string(scores);
 		startScreen.addChild(scoresText);
-
+		
 		if (currentLevel != null) {
 			removeChild(currentLevel);
 			currentLevel = null;

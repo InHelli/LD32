@@ -52,7 +52,7 @@ class Tittle extends Sprite implements ActiveObject
 		
 		this.x = localX=x;
 		this.y =localY= y;
-		Main.currentLevel.addChild(this);
+		Main.currentLevel.objects.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
 	}
 	

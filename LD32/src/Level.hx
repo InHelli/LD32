@@ -1,5 +1,6 @@
 package ;
 
+import openfl.display.Bitmap;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
@@ -15,6 +16,9 @@ class Level extends Sprite
 	public var mouse_Y:Float;
 	public var bullets:Array<Bullet>;
 	public var effects:Array<Effect>;
+	public var fon:Bitmap;
+	public var gameInterFace:Sprite;
+	public var objects:Sprite;
 	public function new() 
 	{
 		super();
@@ -26,8 +30,16 @@ class Level extends Sprite
 	
 	function added(e:Event)
 	{
+		
 		this.removeEventListener(Event.ADDED, added);
 		
+		gameInterFace = new Sprite();
+		fon = new Bitmap(PictersSource.tittle[1]);
+		objects = new Sprite();
+		
+		addChild(fon);
+		addChild(objects);
+		addChild(gameInterFace);
 		//==Hero
 		currentHero = new Hero();
 		currentHero.init(400, 280);
@@ -39,6 +51,8 @@ class Level extends Sprite
 			var bush:Tittle = new Tittle();
 			bush.init(Math.round(100+Math.random()*700), Math.round(50+Math.random()*430));
 		}
+		
+		
 		
 		//==Final
 		this.addEventListener(Event.ENTER_FRAME, onUpdate);
@@ -76,7 +90,7 @@ class Level extends Sprite
 		for (i in 0...activeObjects.length)
 		{
 			
-			this.setChildIndex(cast(activeObjects[i],Sprite), i);
+			objects.setChildIndex(cast(activeObjects[i],Sprite), i);
 		}
 	}
 	
@@ -140,6 +154,10 @@ class Level extends Sprite
 	function removed(e:Event)
 	{
 		this.removeEventListener(Event.ENTER_FRAME, onUpdate);
+		removeChild(fon);
+		removeChild(objects);
+		removeChild(gameInterFace);
+		
 	}
 	
 }

@@ -149,11 +149,12 @@ class Bird extends Sprite implements ActiveObject
 		this.x = localX = x;
 		this.y = localY = y;
 		resetTarget();
-		Main.currentLevel.addChild(this);
+		Main.currentLevel.objects.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
 		
 		addChild(shadow);
 		shadow.y = 0;
+		shadow.alpha = 0.6;
 		pic.y = -140;
 		addChild(pic);
 		

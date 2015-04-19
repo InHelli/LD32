@@ -58,7 +58,8 @@ class Hero extends Sprite implements ActiveObject
 		this.y = localY = y;
 		wallking = false;
 		
-		Main.currentLevel.addChild(this);
+		
+		Main.currentLevel.objects.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey.bind(true));
 		stage.addEventListener(KeyboardEvent.KEY_UP, onKey.bind(false));
@@ -72,7 +73,7 @@ class Hero extends Sprite implements ActiveObject
 		herobitmapData.y = -herobitmapData.height;
 		
 		shadow.scaleY = 0.4;
-		
+		shadow.alpha = 0.6;
 		
 		shield.scaleX = shield.scaleY = shieldSize;
 		shield.x = - shield.width / 2;

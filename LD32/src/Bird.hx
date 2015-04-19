@@ -22,6 +22,9 @@ class Bird extends Sprite implements ActiveObject
 	public var globalScale = 0.5;
 	public var stopDown:Int;
 	public var shadow:Sprite;
+	public var size:Float = 3;
+	
+	
 	public function new() 
 	{
 		super();
@@ -82,15 +85,9 @@ class Bird extends Sprite implements ActiveObject
 		
 		
 		
-		if (((MyMath.distance(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y, x, y) < Level.currentHero.size)))
+		if (Level.isCollision(this,Level.currentHero))
 		{
-			localRotation = MyMath.getAngle(localX, localY, Level.currentHero.localX,Level.currentHero.localY);
-			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
-			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep) - localRotation));
-			var differ = MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation));
-			
-			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
-			if (differ>=Level.currentHero.shieldDeg)
+			if(Level.currentHero.isHit(this))
 			{
 				
 				free();

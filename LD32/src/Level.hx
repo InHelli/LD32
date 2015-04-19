@@ -125,6 +125,17 @@ class Level extends Sprite
 		
 		
 	}
+	static public function isCollision(a:ActiveObject,b:ActiveObject)
+	{
+		if ((MyMath.distance(a.localX, a.localY, b.localX, b.localY) < a.size+b.size))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	function removed(e:Event)
 	{

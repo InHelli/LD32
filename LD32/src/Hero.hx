@@ -217,5 +217,21 @@ class Hero extends Sprite implements ActiveObject
 		heroPoint.y = localY + offset_Y;
 	}
 	
-	
+	public function isHit(a:ActiveObject)
+	{
+			a.localRotation = MyMath.getAngle(a.localX, a.localY, localX,localY);
+			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
+			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep) - localRotation));
+			var differ = MyMath.betweenAnglesDeg(MyMath.toDegrees(localRotation), MyMath.toDegrees(a.localRotation));
+			
+			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
+			if (differ >= Level.currentHero.shieldDeg)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+	}
 }

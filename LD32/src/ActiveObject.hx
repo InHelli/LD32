@@ -9,6 +9,7 @@ interface ActiveObject
 	public var localX:Float;
 	public var localY:Float;
 	public var localRotation:Float;
+	public var size:Float;
 	//==function
 	public function free():Void;
 	public function update():Void;

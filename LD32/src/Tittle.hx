@@ -13,6 +13,7 @@ class Tittle extends Sprite implements ActiveObject
 	public var localX:Float;
 	public var localY:Float;
 	public var localRotation:Float;
+	public var size:Float = 50;
 	public function new() 
 	{
 		super();
@@ -34,7 +35,7 @@ class Tittle extends Sprite implements ActiveObject
 	
 	public function update():Void 
 	{
-		if (MyMath.distance(Level.currentHero.localX, Level.currentHero.localY, x, y) < 50 && Level.currentHero.y < localY)
+		if (MyMath.distance(Level.currentHero.localX, Level.currentHero.localY, x, y) < size && Level.currentHero.y < localY)
 		{
 			alpha = 0.5;
 		}

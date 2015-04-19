@@ -14,6 +14,8 @@ class Bullet extends Sprite implements ActiveObject
 	public var speed:Float;
 	public var lifetime:Int;
 	public var friendly:Bool;
+	public var size:Float;
+	
 	public function new(deg:Float,speed:Float,lifetime:Int) 
 	{
 		super();

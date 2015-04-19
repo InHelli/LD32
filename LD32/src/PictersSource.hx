@@ -27,6 +27,13 @@ class PictersSource
 		shieldArray.push(Assets.getBitmapData("img/Shield/7.png")); //4
 		//shieldArray.push(Assets.getBitmapData("img/Shield/8.png"));
 		
+		shieldArray.push(Assets.getBitmapData("img/Hero/4_1.png"));//5
+		shieldArray.push(Assets.getBitmapData("img/Hero/4_2.png"));//6
+		shieldArray.push(Assets.getBitmapData("img/Hero/6_1.png"));//7
+		shieldArray.push(Assets.getBitmapData("img/Hero/6_2.png"));//8
+		shieldArray.push(Assets.getBitmapData("img/Hero/7_1.png"));//9
+		
+		
 		birdArray.push(Assets.getBitmapData("img/Enemys/1.png"));//0
 		birdArray.push(Assets.getBitmapData("img/Enemys/2.png"));//1
 		

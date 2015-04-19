@@ -80,7 +80,11 @@ class Hero extends Sprite implements ActiveObject
 	
 	public function Damaged()
 	{
-		trace("Damaged");
+		for (i in 0...25) {
+					var ps:Particles = new Particles( -1);
+					ps.init(Math.round(localX), Math.round(localY-70));
+					//ps.init(Math.round(Level.currentHero.localX), Math.round(Level.currentHero.localY - 55));
+				}
 	}
 	
 	function onMouseMove(e:MouseEvent)
@@ -303,6 +307,7 @@ class Hero extends Sprite implements ActiveObject
 			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
 			if (differ >= Level.currentHero.shieldDeg)
 			{
+				
 				return true;
 			}
 			else

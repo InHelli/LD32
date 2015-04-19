@@ -25,6 +25,9 @@ class Bird extends Sprite implements ActiveObject
 	public var size:Float = 3;
 	
 	
+	
+	
+	
 	public function new() 
 	{
 		super();
@@ -87,8 +90,10 @@ class Bird extends Sprite implements ActiveObject
 		
 		if (Level.isCollision(this,Level.currentHero))
 		{
+			
 			if(Level.currentHero.isHit(this))
 			{
+				Audio.playHit();
 				for (i in 0...20) {
 					var ps:Particles = new Particles(0);
 					ps.init(Math.round(x+pic.x+30), Math.round(y+pic.y+70));
@@ -103,14 +108,22 @@ class Bird extends Sprite implements ActiveObject
 				
 				Level.currentHero.Damaged();
 
-				for (i in 0...25) {
-					var ps:Particles = new Particles( -1);
-					ps.init(Math.round(Level.currentHero.localX), Math.round(y+pic.y+70));
-					//ps.init(Math.round(Level.currentHero.localX), Math.round(Level.currentHero.localY - 55));
+				
+				free();
+			}
+		}
+		for (b in Main.currentLevel.bullets)
+		{
+			if (Level.isCollision(b, this)&&b.friendly)
+			{
+				for (i in 0...20) {
+					var ps:Particles = new Particles(0);
+					ps.init(Math.round(x+pic.x+30), Math.round(y+pic.y+70));
 				}
 
-				Level.currentHero.health -= 105;
-				//trace("Damage!");
+
+				Level.currentHero.health -= 5;
+
 				free();
 			}
 		}
@@ -160,6 +173,7 @@ class Bird extends Sprite implements ActiveObject
 	
 	public function init(x:Int, y:Int):Void 
 	{
+		
 		shadow.scaleY = 0.4;
 		this.x = localX = x;
 		this.y = localY = y;
@@ -172,6 +186,7 @@ class Bird extends Sprite implements ActiveObject
 		shadow.alpha = 0.6;
 		pic.y = -110;
 		addChild(pic);
+		
 		
 	}
 	

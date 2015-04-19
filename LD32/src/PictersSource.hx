@@ -51,7 +51,7 @@ class PictersSource
 		hero2.push(Assets.getBitmapData("img/Hero/7.png")); //4
 		hero2.push(Assets.getBitmapData("img/Hero/7_1.png")); //4
 		
-		tittle.push(Assets.getBitmapData("img/fon2.png"));
+		tittle.push(Assets.getBitmapData("img/fon4.png"));
 	}
 	
 }

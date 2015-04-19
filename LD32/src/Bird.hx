@@ -107,7 +107,7 @@ class Bird extends Sprite implements ActiveObject
 
 				
 				Level.currentHero.Damaged();
-
+				Level.currentHero.health -= 20;
 				
 				free();
 			}
@@ -123,7 +123,7 @@ class Bird extends Sprite implements ActiveObject
 
 
 
-				Level.currentHero.health -= 20;
+				
 				
 
 

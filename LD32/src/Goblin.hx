@@ -112,6 +112,7 @@ class Goblin extends Sprite implements ActiveObject
 			else
 			{
 				Level.currentHero.Damaged();
+				Level.currentHero.health -= 30;
 				free();
 			}
 		}

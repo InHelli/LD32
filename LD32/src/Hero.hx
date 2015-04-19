@@ -28,7 +28,7 @@ class Hero extends Sprite implements ActiveObject
 	public var moveRotation:Float;
 	public var shieldDeg:Float = 125;
 	public var localRotation:Float;
-	public var health:Float = 50;
+	public var health:Float = 60;
 	public var scores:Int = 0;
 	//public var localRotation:Float;
 	public function new() 
@@ -222,6 +222,8 @@ class Hero extends Sprite implements ActiveObject
 	
 	public function free():Void 
 	{
+		
+		stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		if (parent.contains(this))
 		  { 
 			parent.removeChild(this);
@@ -231,10 +233,9 @@ class Hero extends Sprite implements ActiveObject
 		stage.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 		stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKey.bind(true));
 		stage.removeEventListener(KeyboardEvent.KEY_UP, onKey.bind(false));
-		stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		shadow.graphics.clear();
 		this.removeChild(shadow);
-		herobitmapData.free();
+		//herobitmapData.free();
 		this.removeChild(herobitmapData);
 		shieldSpr.removeChild(shield);
 		removeChild(shieldSpr);

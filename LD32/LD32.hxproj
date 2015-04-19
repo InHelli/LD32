@@ -27,7 +27,7 @@
     <option directives="openfl=2.1.5&#xA;lime=2.0.0-beta&#xA;actuate=1.7.5&#xA;tools=2.0.0-beta&#xA;no-compilation&#xA;openfl-flash&#xA;web" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="ApplicationMain" />
+    <option mainClass="" />
     <option enabledebug="True" />
     <option additional="-swf-version 11.2" />
   </build>

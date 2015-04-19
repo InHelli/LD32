@@ -22,7 +22,7 @@ class Goblin extends Sprite implements ActiveObject
 	public var globalScale = 0.2;
 	public var stopDown:Int;
 	public var shadow:Sprite;
-	public var size:Float = 10;
+	public var size:Float = 30;
 	public var startDown:Int = 120;
 	public var bombCooldown:Int;
 	
@@ -98,12 +98,28 @@ class Goblin extends Sprite implements ActiveObject
 			if(Level.currentHero.isHit(this))
 			{
 				
+				for (i in 0...20) {
+					var ps:Particles = new Particles(-1);
+					ps.init(Math.round(localX), Math.round(localY-20));
+				}
 				free();
 				
 			}
 			else
 			{
-				trace("Damage!");
+				Level.currentHero.Damaged();
+				free();
+			}
+		}
+		
+		for (b in Main.currentLevel.bullets)
+		{
+			if (Level.isCollision(b, this)&&b.friendly)
+			{
+				for (i in 0...20) {
+					var ps:Particles = new Particles(-1);
+					ps.init(Math.round(localX), Math.round(localY-20));
+				}
 				free();
 			}
 		}
@@ -166,7 +182,8 @@ class Goblin extends Sprite implements ActiveObject
 		{
 			case 0:
 				{
-					target = new Point(Math.random()*800,Math.random()*480);
+					target = new Point(Math.random() * 800, Math.random() * 480);
+					startDown = 120;
 				}
 			case 1:
 				{

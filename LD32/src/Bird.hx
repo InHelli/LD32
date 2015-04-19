@@ -87,6 +87,7 @@ class Bird extends Sprite implements ActiveObject
 		
 		if (Level.isCollision(this,Level.currentHero))
 		{
+			
 			if(Level.currentHero.isHit(this))
 			{
 				for (i in 0...20) {
@@ -103,11 +104,19 @@ class Bird extends Sprite implements ActiveObject
 				
 				Level.currentHero.Damaged();
 
-				for (i in 0...25) {
-					var ps:Particles = new Particles( -1);
-					ps.init(Math.round(Level.currentHero.localX), Math.round(y+pic.y+70));
-					//ps.init(Math.round(Level.currentHero.localX), Math.round(Level.currentHero.localY - 55));
+				
+				free();
+			}
+		}
+		for (b in Main.currentLevel.bullets)
+		{
+			if (Level.isCollision(b, this)&&b.friendly)
+			{
+				for (i in 0...20) {
+					var ps:Particles = new Particles(0);
+					ps.init(Math.round(x+pic.x+30), Math.round(y+pic.y+70));
 				}
+				
 				free();
 			}
 		}

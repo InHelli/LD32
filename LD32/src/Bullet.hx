@@ -14,7 +14,7 @@ class Bullet extends Sprite implements ActiveObject
 	public var speed:Float;
 	public var lifetime:Int;
 	public var friendly:Bool;
-	public var size:Float  = 10;
+	public var size:Float  = 20;
 	public var shadow:Sprite;
 	public function new(deg:Float,speed:Float,lifetime:Int) 
 	{
@@ -54,7 +54,6 @@ class Bullet extends Sprite implements ActiveObject
 		move();
 		lifetime--;
 		if (lifetime < 0) this.free();
-		
 		if (Level.isCollision(Level.currentHero,this)&&!friendly)
 		{
 			
@@ -83,6 +82,8 @@ class Bullet extends Sprite implements ActiveObject
 				free();
 			}
 		}
+		
+		
 		
 	}
 	

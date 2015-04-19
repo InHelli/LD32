@@ -99,17 +99,24 @@ class Hunter extends Sprite implements ActiveObject
 			else
 			{
 				Level.currentHero.Damaged();
-				for (i in 0...18) {
-					var ps:Particles = new Particles( -1);
-					ps.scaleX = 1.7;
-					ps.scaleY = 1.7;
-					ps.init(Math.round(Level.currentHero.localX),Math.round(y+pic.y));
-					//ps.init(Math.round(Level.currentHero.localX), Math.round(Level.currentHero.localY - 55));
-				}
 
 				free();
 			}
 		}
+		
+		
+		for (b in Main.currentLevel.bullets)
+		{
+			if (Level.isCollision(b, this)&&b.friendly)
+			{
+				for (i in 0...20) {
+					var ps:Particles = new Particles(1);
+					ps.init(Math.round(x+pic.x), Math.round(y+pic.y));
+				}
+				free();
+			}
+		}
+		
 	}
 	
 	function move()

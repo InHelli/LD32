@@ -52,13 +52,15 @@ class Particles extends Sprite implements ActiveObject
 		alpha *= 0.98;
 		if (lifetime == 0) {
 			//removeEventListener(Event.ENTER_FRAME, onFrame);
-			parent.removeChild(this);
+			free();
 		}
 	}
 	public function init(x:Int, y:Int):Void 
 	{
+		this.x = localX = x;
+		this.y = localY = y;
 		
-		Main.currentLevel.addChild(this);
+		Main.currentLevel.objects.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
 		
 	}

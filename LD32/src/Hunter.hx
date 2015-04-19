@@ -93,6 +93,7 @@ class Hunter extends Sprite implements ActiveObject
 					var ps:Particles = new Particles(1);
 					ps.init(Math.round(x+pic.x), Math.round(y+pic.y));
 				}
+				Level.currentHero.scores+=3;
 				free();
 				
 			}
@@ -106,6 +107,7 @@ class Hunter extends Sprite implements ActiveObject
 					//ps.init(Math.round(Level.currentHero.localX), Math.round(Level.currentHero.localY - 55));
 				}
 				trace("Damage!");
+				Level.currentHero.health -= 10;
 				free();
 			}
 		}

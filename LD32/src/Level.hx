@@ -19,12 +19,15 @@ class Level extends Sprite
 	public var fon:Bitmap;
 	public var gameInterFace:Sprite;
 	public var objects:Sprite;
+	public var healthBar:Sprite;
+	
 	public function new() 
 	{
 		super();
 		activeObjects = [];
 		bullets = [];
 		effects = [];
+	
 		this.addEventListener(Event.ADDED,added);
 	}
 	
@@ -36,10 +39,15 @@ class Level extends Sprite
 		gameInterFace = new Sprite();
 		fon = new Bitmap(PictersSource.tittle[1]);
 		objects = new Sprite();
-		
+			healthBar = new Sprite();
+	
 		addChild(fon);
 		addChild(objects);
 		addChild(gameInterFace);
+		healthBar.graphics.beginFill(0x2147AD);
+		healthBar.graphics.drawRect(0, 460, 8, 20);
+		healthBar.graphics.endFill();
+		gameInterFace.addChild(healthBar);
 		//==Hero
 		currentHero = new Hero();
 		currentHero.init(400, 280);
@@ -71,6 +79,7 @@ class Level extends Sprite
 	
 	function onUpdate(e:Event)
 	{
+		healthBar.scaleX = Level.currentHero.health;
 		frame++;
 		for (obj in activeObjects)
 		{

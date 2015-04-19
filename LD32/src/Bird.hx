@@ -29,7 +29,7 @@ class Bird extends Sprite implements ActiveObject
 	{
 		super();
 		speed = 2;
-		target = new Point(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y);
+		target = new Point(Level.currentHero.localX, Level.currentHero.localY);
 		pic = new Bitmap();
 		scaleX = scaleY = globalScale;
 		shadow = new Sprite();
@@ -129,11 +129,11 @@ class Bird extends Sprite implements ActiveObject
 		var size = Level.currentHero.size;
 		switch(Math.round(Math.random() * 5))
 		{
-			case 0: target = new Point(Level.currentHero.heroPoint.x + size, Level.currentHero.heroPoint.y);
-			case 1: target = new Point(Level.currentHero.heroPoint.x - size, Level.currentHero.heroPoint.y);
-			case 2: target = new Point(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y+size);
-			case 3: target = new Point(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y-size);
-			case 4: target = new Point(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y);
+			case 0: target = new Point(Level.currentHero.localX + size, Level.currentHero.localY);
+			case 1: target = new Point(Level.currentHero.localX - size, Level.currentHero.localY);
+			case 2: target = new Point(Level.currentHero.localX, Level.currentHero.localY+size);
+			case 3: target = new Point(Level.currentHero.localX, Level.currentHero.localY-size);
+			case 4: target = new Point(Level.currentHero.localX, Level.currentHero.localY);
 			case 5: 
 			{
 				target = new Point(x, y);

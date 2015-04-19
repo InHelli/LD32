@@ -46,7 +46,7 @@ class Level extends Sprite
 		
 		
 		//==grass
-		for (i in 0...15)
+		for (i in 0...12)
 		{
 			var bush:Tittle = new Tittle();
 			bush.init(Math.round(100+Math.random()*700), Math.round(50+Math.random()*430));

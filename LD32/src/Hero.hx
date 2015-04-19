@@ -23,12 +23,9 @@ class Hero extends Sprite implements ActiveObject
 	public var wallking:Bool;
 	public var shield:Bitmap;
 	var shieldSize:Float = 1.3;
-	public var offset_X = 0;
-	public var offset_Y = 0;
 	var shieldSpr:Sprite;
 	public var mouseStep:Int;
 	public var moveRotation:Float;
-	public var heroPoint:Point;
 	public var shieldDeg:Float = 125;
 	public var localRotation:Float;
 	//public var localRotation:Float;
@@ -41,7 +38,6 @@ class Hero extends Sprite implements ActiveObject
 		speed = 2;
 		shieldSpr = new Sprite();
 		shieldSpr.addChild(shield);
-		heroPoint = new Point();
 	}
 	
 	/* INTERFACE ActiveObject */
@@ -247,36 +243,44 @@ class Hero extends Sprite implements ActiveObject
 	}
 	function move()
 	{
-		var oldX:Float = localX;
-		var oldY:Float = localY;
+		
+		var newX:Float = localX;
+		var newY:Float = localY;
 		wallking = false;
 		if (keys[87]) 
 		{
-			localY -= speed;
+			newY -= speed;
 			wallking = true;
 		}
 		else if (keys[83])
 		{
-			localY += speed;
+			newY += speed;
 			wallking = true;
 		}
 		
 		if (keys[65]) 
 		{
-			localX -= speed;
+			newX -= speed;
 			wallking = true;
 		}
 		else if (keys[68])
 		{
-			localX += speed;
+			newX += speed;
 			wallking = true;
 		}
-		moveRotation = MyMath.getAngle(oldX, oldY, localX, localY);
+		moveRotation = MyMath.getAngle(localX, localY, newX, newY);
 		//trace(MyMath.toDegrees(moveRotation));
-		this.x = localX;
-		this.y = localY;
-		heroPoint.x = localX + offset_X;
-		heroPoint.y = localY + offset_Y;
+		if (newX > size && 
+			newX < stage.stageWidth - size)
+			{
+				this.x = localX = newX;
+			}
+		if(newY > size && 
+			newY < stage.stageHeight - size)
+		{
+			
+			this.y = localY = newY;
+		}
 		
 	}
 	

@@ -49,7 +49,7 @@ class Bullet extends Sprite implements ActiveObject
 		lifetime--;
 		if (lifetime < 0) this.free();
 		
-		if (((MyMath.distance(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y, x, y) < Level.currentHero.size))&&!friendly)
+		if (((MyMath.distance(Level.currentHero.localX, Level.currentHero.localY, x, y) < Level.currentHero.size))&&!friendly)
 		{
 			
 			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));

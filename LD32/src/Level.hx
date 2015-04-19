@@ -193,6 +193,7 @@ class Level extends Sprite
 		removeChild(fon);
 		removeChild(objects);
 		removeChild(gameInterFace);
+		sound.stopFon();
 		
 		
 	}

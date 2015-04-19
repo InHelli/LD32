@@ -97,7 +97,7 @@ class Goblin extends Sprite implements ActiveObject
 		{
 			if(Level.currentHero.isHit(this))
 			{
-				
+				Audio.playHit();
 				free();
 				
 			}

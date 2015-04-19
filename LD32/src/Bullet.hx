@@ -65,7 +65,7 @@ class Bullet extends Sprite implements ActiveObject
 			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
 			if (Level.currentHero.isHit(this))
 			{
-				
+				Audio.playRicoshet();
 				var herDeg = Level.currentHero.degToMouse;
 				localRotation = (herDeg + MyMath.toRadians(180 - differ));
 				var differMove = MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.moveRotation), MyMath.toDegrees(localRotation));

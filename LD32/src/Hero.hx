@@ -303,7 +303,7 @@ class Hero extends Sprite implements ActiveObject
 			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
 			if (differ >= Level.currentHero.shieldDeg)
 			{
-				Audio.playRicoshet();
+				
 				return true;
 			}
 			else

@@ -76,7 +76,7 @@ class Audio
 		
 			public static function playRicoshet() {
 			
-			channel_rikoshet = snd_hit.play();
+			channel_rikoshet = snd_rikoshet.play();
 			channel_rikoshet.addEventListener(Event.SOUND_COMPLETE, stopRicoshet);
 			
 			}

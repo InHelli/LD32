@@ -95,7 +95,8 @@ class Bird extends Sprite implements ActiveObject
 			}
 			else
 			{
-				trace("Damage!");
+				
+				Level.currentHero.Damaged();
 				free();
 			}
 		}

@@ -76,6 +76,11 @@ class Hero extends Sprite implements ActiveObject
 		shield.y = - shield.height+size*0.4;
 	}
 	
+	public function Damaged()
+	{
+		trace("Damaged");
+	}
+	
 	function onMouseMove(e:MouseEvent)
 	{
 		degToMouse = MyMath.getAngle(this.x, this.y, Main.currentLevel.mouse_X, Main.currentLevel.mouse_Y, true);
@@ -271,12 +276,12 @@ class Hero extends Sprite implements ActiveObject
 		moveRotation = MyMath.getAngle(localX, localY, newX, newY);
 		//trace(MyMath.toDegrees(moveRotation));
 		if (newX > size && 
-			newX < stage.stageWidth - size)
+			newX < stage.stageWidth)
 			{
 				this.x = localX = newX;
 			}
 		if(newY > size && 
-			newY < stage.stageHeight - size)
+			newY < stage.stageHeight)
 		{
 			
 			this.y = localY = newY;

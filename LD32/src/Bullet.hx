@@ -14,8 +14,8 @@ class Bullet extends Sprite implements ActiveObject
 	public var speed:Float;
 	public var lifetime:Int;
 	public var friendly:Bool;
-	public var size:Float;
-	
+	public var size:Float  = 10;
+	public var shadow:Sprite;
 	public function new(deg:Float,speed:Float,lifetime:Int) 
 	{
 		super();
@@ -24,6 +24,7 @@ class Bullet extends Sprite implements ActiveObject
 		localRotation = deg;
 		this.speed = speed;
 		this.lifetime = lifetime;
+		shadow = new Sprite();
 	}
 	
 	/* INTERFACE ActiveObject */
@@ -42,14 +43,19 @@ class Bullet extends Sprite implements ActiveObject
 	public function update():Void 
 	{
 		graphics.clear();
-		graphics.beginFill(0x00ff00);
-		graphics.drawCircle(0, 0, 10);
+		graphics.beginFill(0x595959);
+		graphics.drawCircle(0, -20, 10);
 		graphics.endFill();
+		
+		shadow.graphics.clear();
+		shadow.graphics.beginFill(0x888888);
+		shadow.graphics.drawCircle(0, 20, size);
+		shadow.graphics.endFill();
 		move();
 		lifetime--;
 		if (lifetime < 0) this.free();
 		
-		if (((MyMath.distance(Level.currentHero.localX, Level.currentHero.localY, x, y) < Level.currentHero.size))&&!friendly)
+		if (Level.isCollision(Level.currentHero,this)&&!friendly)
 		{
 			
 			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
@@ -57,7 +63,7 @@ class Bullet extends Sprite implements ActiveObject
 			var differ = MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation));
 			
 			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
-			if (differ>=136)
+			if (Level.currentHero.isHit(this))
 			{
 				
 				var herDeg = Level.currentHero.degToMouse;
@@ -73,7 +79,7 @@ class Bullet extends Sprite implements ActiveObject
 			}
 			else if(!friendly)
 			{
-				trace("Damage!");
+				Level.currentHero.Damaged();
 				free();
 			}
 		}
@@ -84,10 +90,13 @@ class Bullet extends Sprite implements ActiveObject
 	{
 		this.x = localX = x;
 		this.y = localY = y;
-		Main.currentLevel.addChild(this);
+		Main.currentLevel.objects.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
 		Main.currentLevel.bullets.push(this);
 		friendly = false;
+		addChild(shadow);
+		shadow.alpha = 0.6;
+		shadow.scaleY = 0.4;
 	}
 	
 	function move()

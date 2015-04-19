@@ -79,6 +79,7 @@ class Bullet extends Sprite implements ActiveObject
 			else if(!friendly)
 			{
 				Level.currentHero.Damaged();
+				Level.currentHero.health -= 30;
 				free();
 			}
 		}

@@ -109,8 +109,6 @@ class Level extends Sprite
 	var degToHero:Float;
 	function somefunc()
 	{
-		
-		
 		if (frame % 200 == 0)
 		{
 			
@@ -125,8 +123,6 @@ class Level extends Sprite
 			
 			var bird:Bird = new Bird();
 			bird.init(Math.round(TX),Math.round(TY));
-			
-			
 		}
 		
 		if (frame % 500 == 0)
@@ -186,7 +182,12 @@ class Level extends Sprite
 		removeChild(fon);
 		removeChild(objects);
 		removeChild(gameInterFace);
-		
+	}
+	public function destroy() {
+	
+		this.removeEventListener(Event.ENTER_FRAME, onUpdate);
+		this.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+
 	}
 	
 }

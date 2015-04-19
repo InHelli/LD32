@@ -108,7 +108,7 @@ class Hunter extends Sprite implements ActiveObject
 					//ps.init(Math.round(Level.currentHero.localX), Math.round(Level.currentHero.localY - 55));
 				}
 
-				trace("Damage!");
+				//trace("Damage!");
 				Level.currentHero.health -= 10;
 
 				free();

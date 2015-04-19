@@ -109,8 +109,8 @@ class Bird extends Sprite implements ActiveObject
 					//ps.init(Math.round(Level.currentHero.localX), Math.round(Level.currentHero.localY - 55));
 				}
 
-				Level.currentHero.health -= 5;
-				trace("Damage!");
+				Level.currentHero.health -= 105;
+				//trace("Damage!");
 				free();
 			}
 		}

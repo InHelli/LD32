@@ -88,7 +88,7 @@ class Hunter extends Sprite implements ActiveObject
 			var differ = MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation));
 			
 			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
-			if (differ>=136)
+			if (differ>=Level.currentHero.shieldDeg)
 			{
 				
 				free();

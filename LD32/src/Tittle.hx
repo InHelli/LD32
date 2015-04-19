@@ -12,6 +12,7 @@ class Tittle extends Sprite implements ActiveObject
 	var pic:Bitmap;
 	public var localX:Float;
 	public var localY:Float;
+	public var localRotation:Float;
 	public function new() 
 	{
 		super();

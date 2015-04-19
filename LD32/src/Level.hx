@@ -20,15 +20,19 @@ class Level extends Sprite
 	public var fon:Bitmap;
 	public var gameInterFace:Sprite;
 	public var objects:Sprite;
+	public var healthBar:Sprite;
+	
 	public function new() 
 	{
 		super();
 		activeObjects = [];
 		bullets = [];
 		effects = [];
+
 		sound = new Audio();
 		this.addEventListener(Event.ADDED, added);
 		sound.playFon();
+		this.addEventListener(Event.ADDED,added);
 	}
 	
 	function added(e:Event)
@@ -36,13 +40,20 @@ class Level extends Sprite
 		
 		this.removeEventListener(Event.ADDED, added);
 		
-		gameInterFace = new Sprite();
+		
 		fon = new Bitmap(PictersSource.tittle[1]);
 		objects = new Sprite();
-		
+
+		healthBar = new Sprite();
+		gameInterFace = new Sprite();
+
 		addChild(fon);
 		addChild(objects);
 		addChild(gameInterFace);
+		healthBar.graphics.beginFill(0x2147AD);
+		healthBar.graphics.drawRect(0, 460, 8, 20);
+		healthBar.graphics.endFill();
+		gameInterFace.addChild(healthBar);
 		//==Hero
 		currentHero = new Hero();
 		currentHero.init(400, 280);
@@ -52,10 +63,10 @@ class Level extends Sprite
 		
 		
 		//==grass
-		for (i in 0...12)
+		for (i in 0...7)
 		{
 			var bush:Tittle = new Tittle();
-			bush.init(Math.round(100+Math.random()*700), Math.round(50+Math.random()*430));
+			bush.init(Math.round(100+Math.random()*700), Math.round(50+Math.random()*380));
 		}
 		
 		
@@ -77,6 +88,7 @@ class Level extends Sprite
 	
 	function onUpdate(e:Event)
 	{
+		healthBar.scaleX = Level.currentHero.health;
 		frame++;
 		for (obj in activeObjects)
 		{
@@ -106,7 +118,7 @@ class Level extends Sprite
 	{
 		
 		
-		if (frame % 100 == 0)
+		if (frame % 200 == 0)
 		{
 			
 			var TX:Float = -20 + Math.random() * 840;
@@ -124,7 +136,7 @@ class Level extends Sprite
 			
 		}
 		
-		if (frame % 300 == 0)
+		if (frame % 500 == 0)
 		{
 			
 			var TX:Float = -20 + Math.random() * 840;
@@ -138,6 +150,24 @@ class Level extends Sprite
 			
 			var hunter:Hunter = new Hunter();
 			hunter.init(Math.round(TX),Math.round(TY));
+			
+			
+		}
+		
+		if (frame % 450 == 0)
+		{
+			
+			var TX:Float = -20 + Math.random() * 840;
+			var TY:Float = -20 * Math.round(0 - Math.random());
+			if (Math.random() > 0.5)
+			{
+			 TX= -20 * Math.round(0 - Math.random());
+			 TY= -20 + Math.random() * 520;
+			}
+			//var degToHero:Float = MyMath.getAngle(TX, TY, Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y);
+			
+			var gob:Goblin = new Goblin();
+			gob.init(Math.round(TX),Math.round(TY));
 			
 			
 		}

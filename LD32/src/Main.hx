@@ -22,18 +22,17 @@ class Main extends Sprite
 		if (!inited) init();
 		// else (resize or orientation change)
 	}
-	
+	public var startScreen:StartScreen;
 	function init() 
 	{
 		if (inited) return;
 		inited = true;
 		me = this;
+		startScreen = new StartScreen();
+		addChild(startScreen);
+		startScreen.addEventListener('start', onStart);
 		// (your code here)
-		PictersSource.load();
-		currentLevel = new Level();
-		this.addChild(currentLevel);
 		
-		this.addChild(new FPS());
 		
 		// Stage:
 		// stage.stageWidth x stage.stageHeight @ stage.dpiScale
@@ -41,7 +40,22 @@ class Main extends Sprite
 		// Assets:
 		// nme.Assets.getBitmapData("img/assetname.jpg");
 	}
-
+	public function onStart (e:Event) {
+		startScreen.visible =  false;
+		//gameoverScreen.visible = false;
+		startNewGame();
+		
+	}
+	public function startNewGame() {
+		if (currentLevel != null) {
+			removeChild(currentLevel);
+			currentLevel = null;
+		}
+		PictersSource.load();
+		currentLevel = new Level();
+		this.addChild(currentLevel);
+		this.addChild(new FPS());
+	}
 	/* SETUP */
 
 	

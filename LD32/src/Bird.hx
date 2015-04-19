@@ -92,12 +92,31 @@ class Bird extends Sprite implements ActiveObject
 		{
 			if(Level.currentHero.isHit(this))
 			{
+<<<<<<< HEAD
 				Audio.playHit();
+=======
+				for (i in 0...20) {
+					var ps:Particles = new Particles(0);
+					ps.init(Math.round(x+pic.x+30), Math.round(y+pic.y+70));
+				}
+				Level.currentHero.scores++;
+>>>>>>> 046efeb4b4dc860d461f55b3dbc7448401420552
 				free();
 				
 			}
 			else
 			{
+
+				
+				Level.currentHero.Damaged();
+
+				for (i in 0...25) {
+					var ps:Particles = new Particles( -1);
+					ps.init(Math.round(Level.currentHero.localX), Math.round(y+pic.y+70));
+					//ps.init(Math.round(Level.currentHero.localX), Math.round(Level.currentHero.localY - 55));
+				}
+
+				Level.currentHero.health -= 5;
 				trace("Damage!");
 				free();
 			}

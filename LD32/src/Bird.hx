@@ -153,9 +153,9 @@ class Bird extends Sprite implements ActiveObject
 		Main.currentLevel.activeObjects.push(this);
 		
 		addChild(shadow);
-		shadow.y = 0;
+		shadow.y = 30;
 		shadow.alpha = 0.6;
-		pic.y = -140;
+		pic.y = -110;
 		addChild(pic);
 		
 	}

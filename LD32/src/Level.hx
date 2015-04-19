@@ -86,6 +86,7 @@ class Level extends Sprite
 	{
 		mouse_X = e.stageX;
 		mouse_Y = e.stageY;
+		if(currentHero!=null)Level.currentHero.onMouseMove(e);
 	}
 	
 	
@@ -195,11 +196,23 @@ class Level extends Sprite
 			return false;
 		}
 	}
+	public function free()
+	{
+		for (o in activeObjects)
+		{
+			
+			if(o!=null)o.free();
+		}
+	}
 	
 	function removed(e:Event)
 	{
-		this.removeEventListener(Event.ENTER_FRAME, onUpdate);
 		
+		stage.removeEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
+		this.removeEventListener(Event.ENTER_FRAME, onUpdate);
+		this.removeEventListener(Event.REMOVED_FROM_STAGE, removed);
+		
+/*<<<<<<< HEAD
 		for (i in 0...activeObjects.length)
 		{
 			
@@ -209,6 +222,11 @@ class Level extends Sprite
 		removeChild(objects);
 		removeChild(gameInterFace);
 		sound.stopFon();
+//=======*/
+		if(contains(fon))removeChild(fon);
+		if(contains(objects))removeChild(objects);
+		if(contains(gameInterFace))removeChild(gameInterFace);
+//>>>>>>> origin/master
 
 	}
 	public function destroy() {

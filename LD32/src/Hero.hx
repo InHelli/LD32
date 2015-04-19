@@ -28,7 +28,7 @@ class Hero extends Sprite implements ActiveObject
 	public var moveRotation:Float;
 	public var shieldDeg:Float = 125;
 	public var localRotation:Float;
-	public var health:Float = 50;
+	public var health:Float = 60;
 	public var scores:Int = 0;
 	//public var localRotation:Float;
 	public function new() 
@@ -61,8 +61,6 @@ class Hero extends Sprite implements ActiveObject
 		Main.currentLevel.activeObjects.push(this);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey.bind(true));
 		stage.addEventListener(KeyboardEvent.KEY_UP, onKey.bind(false));
-		stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-		stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 	}
 	
 	function workSprite()
@@ -88,7 +86,7 @@ class Hero extends Sprite implements ActiveObject
 				}
 	}
 	
-	function onMouseMove(e:MouseEvent)
+	public function onMouseMove(e:MouseEvent)
 	{
 		degToMouse = MyMath.getAngle(this.x, this.y, Main.currentLevel.mouse_X, Main.currentLevel.mouse_Y, true);
 		
@@ -222,19 +220,20 @@ class Hero extends Sprite implements ActiveObject
 	
 	public function free():Void 
 	{
+		
+		
 		if (parent.contains(this))
 		  { 
 			parent.removeChild(this);
 		  }
 		Main.currentLevel.activeObjects.remove(this);
+		//stage.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+		//stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKey.bind(true));
 		
-		stage.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-		stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKey.bind(true));
-		stage.removeEventListener(KeyboardEvent.KEY_UP, onKey.bind(false));
-		stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		shadow.graphics.clear();
 		this.removeChild(shadow);
-		herobitmapData.free();
+		
+		//herobitmapData.free();
 		this.removeChild(herobitmapData);
 		shieldSpr.removeChild(shield);
 		removeChild(shieldSpr);

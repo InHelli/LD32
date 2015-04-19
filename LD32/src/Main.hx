@@ -73,6 +73,7 @@ class Main extends Sprite
 		startScreen.addChild(scoresText);
 		
 		if (currentLevel != null) {
+			currentLevel.free();
 			removeChild(currentLevel);
 			currentLevel = null;
 		}

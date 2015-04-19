@@ -7,7 +7,7 @@ import openfl.display.Sprite;
  * ...
  * @author Pazych
  */
-class Animation extends Sprite implements ActiveObject
+class Animation extends Sprite
 {
 	public var bmp:Bitmap;
 	public var bmdArray:Array<BitmapData>;
@@ -20,7 +20,7 @@ class Animation extends Sprite implements ActiveObject
 		bmdArray = bitmapDataArray;
 		
 		bmp = new Bitmap(bmdArray[0]);
-		
+		bmp.x = -bmp.width / 2;
 		timePerOneFrame = Std.int(repeatTime / bmdArray.length);
 		this.addChild(bmp);
 	}
@@ -33,7 +33,6 @@ class Animation extends Sprite implements ActiveObject
 		  { 
 			parent.removeChild(this);
 		  }
-		Main.currentLevel.activeObjects.remove(this);
 	}
 	
 	public function update():Void 
@@ -42,7 +41,7 @@ class Animation extends Sprite implements ActiveObject
 		if (frame == timePerOneFrame) {
 			frame = 0;
 			
-			if (i < bmdArray.length) {
+			if (i < bmdArray.length-1) {
 				i++;
 			}
 			else {
@@ -52,9 +51,15 @@ class Animation extends Sprite implements ActiveObject
 		}
 	}
 	
-	public function init(x:Int, y:Int):Void 
+	public function changeAnimation(bitmapDataArray:Array<BitmapData>, repeatTime:Int)
 	{
+		bmdArray = bitmapDataArray;
 		
+		bmp.bitmapData = bitmapDataArray[0];
+		frame = 0;
+		i = 0;
+		
+		timePerOneFrame = Std.int(repeatTime / bmdArray.length);
 	}
 	
 }

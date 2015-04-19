@@ -17,7 +17,7 @@ class Hero extends Sprite implements ActiveObject
 	public var localX:Float;
 	public var localY:Float;
 	public var degToMouse:Float;
-	public var herobitmapData:Bitmap;
+	public var herobitmapData:Animation;
 	public var shadow:Sprite;
 	public var size:Float = 40;
 	public var wallking:Bool;
@@ -48,18 +48,18 @@ class Hero extends Sprite implements ActiveObject
 	
 	public function init(x:Int,y:Int):Void 
 	{
-		
+		herobitmapData = new Animation(PictersSource.hero0,1);
 		this.addChild(shadow);
-		this.addChild(herobitmapData = new Bitmap(new BitmapData(10, 10, false, 0x00ff00)));
+		this.addChild(herobitmapData);
 		this.addChild(shieldSpr);
-		
 		workSprite();
 		
 		this.x = localX = x;
 		this.y = localY = y;
 		wallking = false;
 		
-		Main.currentLevel.addChild(this);
+		
+		Main.currentLevel.objects.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey.bind(true));
 		stage.addEventListener(KeyboardEvent.KEY_UP, onKey.bind(false));
@@ -69,11 +69,11 @@ class Hero extends Sprite implements ActiveObject
 	
 	function workSprite()
 	{
-		herobitmapData.x = -herobitmapData.width / 2;
+		
 		herobitmapData.y = -herobitmapData.height;
 		
 		shadow.scaleY = 0.4;
-		
+		shadow.alpha = 0.6;
 		
 		shield.scaleX = shield.scaleY = shieldSize;
 		shield.x = - shield.width / 2;
@@ -114,14 +114,15 @@ class Hero extends Sprite implements ActiveObject
 		else if (mouseStep >= 2 && mouseStep <= 4)
 		{
 			shieldSpr.scaleX = -1;
-			shieldSpr.x = -Level.currentHero.size/2;
+			shieldSpr.x = -Level.currentHero.size / 2;
 		} else
 		{
 			shieldSpr.scaleX = 1;
+			
 			shieldSpr.x = Level.currentHero.size/2;
 		}
 		
-		//if (mouseStep == 1 || mouseStep == 5) //верх низ
+		
 		
 		if (mouseStep >= 4 && mouseStep <= 6) //верх низ
 		{
@@ -140,7 +141,61 @@ class Hero extends Sprite implements ActiveObject
 		}
 		
 		localRotation = getShieldAngel(mouseStep);
+		//анимация
 		
+		checkAnimation();
+	}
+	
+	var animation:Int;
+	public function checkAnimation()
+	{
+		var newAnim:Int;
+		if (mouseStep == 5)
+		{
+			newAnim = 0;
+			
+		}
+		else if (mouseStep==1)
+		{
+			newAnim = 1;
+		}
+		else if(mouseStep >= 2 && mouseStep <= 4)
+		{
+			newAnim = 2;
+		}
+		else
+		{
+			newAnim = 3;
+		}
+			
+		if (newAnim != animation)
+		{
+			switch(newAnim)
+			{
+				case 0:
+					{
+						herobitmapData.changeAnimation(PictersSource.hero1, 10);
+						herobitmapData.scaleX = 1;
+					}
+				case 1: 
+					{
+						herobitmapData.changeAnimation(PictersSource.hero0, 10);
+						herobitmapData.scaleX = 1;
+					}
+				case 2:
+					{
+						herobitmapData.changeAnimation(PictersSource.hero2, 10);
+						herobitmapData.scaleX = -1;
+					}
+				case 3:	
+					{
+						herobitmapData.changeAnimation(PictersSource.hero2, 10);
+						herobitmapData.scaleX = 1;
+					}
+			
+			}
+		animation = newAnim;
+		}
 	}
 	
 	function onMouseDown(e:MouseEvent)
@@ -152,7 +207,7 @@ class Hero extends Sprite implements ActiveObject
 	
 	function onKey(press:Bool,e:KeyboardEvent)
 	{
-		wallking = press;
+		
 		keys[e.keyCode] = press;
 		
 	}
@@ -171,6 +226,7 @@ class Hero extends Sprite implements ActiveObject
 		stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		shadow.graphics.clear();
 		this.removeChild(shadow);
+		herobitmapData.free();
 		this.removeChild(herobitmapData);
 		shieldSpr.removeChild(shield);
 		removeChild(shieldSpr);
@@ -187,27 +243,33 @@ class Hero extends Sprite implements ActiveObject
 		shadow.graphics.drawCircle(0, 0, size);
 		shadow.graphics.endFill();
 		move();
+		if(wallking)herobitmapData.update();
 	}
 	function move()
 	{
 		var oldX:Float = localX;
 		var oldY:Float = localY;
+		wallking = false;
 		if (keys[87]) 
 		{
 			localY -= speed;
+			wallking = true;
 		}
 		else if (keys[83])
 		{
 			localY += speed;
+			wallking = true;
 		}
 		
 		if (keys[65]) 
 		{
 			localX -= speed;
+			wallking = true;
 		}
 		else if (keys[68])
 		{
 			localX += speed;
+			wallking = true;
 		}
 		moveRotation = MyMath.getAngle(oldX, oldY, localX, localY);
 		//trace(MyMath.toDegrees(moveRotation));
@@ -215,7 +277,24 @@ class Hero extends Sprite implements ActiveObject
 		this.y = localY;
 		heroPoint.x = localX + offset_X;
 		heroPoint.y = localY + offset_Y;
+		
 	}
 	
-	
+	public function isHit(a:ActiveObject)
+	{
+			a.localRotation = MyMath.getAngle(a.localX, a.localY, localX,localY);
+			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
+			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep) - localRotation));
+			var differ = MyMath.betweenAnglesDeg(MyMath.toDegrees(localRotation), MyMath.toDegrees(a.localRotation));
+			
+			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
+			if (differ >= Level.currentHero.shieldDeg)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+	}
 }

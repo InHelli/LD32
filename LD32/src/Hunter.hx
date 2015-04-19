@@ -22,6 +22,10 @@ class Hunter extends Sprite implements ActiveObject
 	public var globalScale = 1.4;
 	public var stopDown:Int;
 	public var shadow:Sprite;
+	public var size:Float = 20;
+	
+	
+	
 	public function new() 
 	{
 		super();
@@ -80,15 +84,9 @@ class Hunter extends Sprite implements ActiveObject
 		
 		
 		
-		if (((MyMath.distance(Level.currentHero.heroPoint.x, Level.currentHero.heroPoint.y, x, y) < Level.currentHero.size+20)))
+		if (Level.isCollision(this,Level.currentHero))
 		{
-			localRotation = MyMath.getAngle(localX, localY, Level.currentHero.localX,Level.currentHero.localY);
-			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.degToMouse-localRotation));
-			//var differ = MyMath.toDegrees(Math.abs(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep) - localRotation));
-			var differ = MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation));
-			
-			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
-			if (differ>=Level.currentHero.shieldDeg)
+			if(Level.currentHero.isHit(this))
 			{
 				
 				free();
@@ -152,12 +150,14 @@ class Hunter extends Sprite implements ActiveObject
 		this.x = localX = x;
 		this.y = localY = y;
 		resetTarget();
-		Main.currentLevel.addChild(this);
+		
+		Main.currentLevel.objects.addChild(this);
 		Main.currentLevel.activeObjects.push(this);
 		
 		addChild(shadow);
-		shadow.y = 0;
-		pic.y = -80;
+		shadow.y = 20;
+		shadow.alpha = 0.6;
+		pic.y = -30;
 		addChild(pic);
 	}
 	

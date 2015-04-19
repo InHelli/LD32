@@ -12,6 +12,9 @@ class Effect extends Sprite implements ActiveObject
 	public var localRotation:Float;
 	public var speed:Float;
 	public var lifetime:Int;
+	public var size:Float;
+	
+	
 	public function new(deg:Float,speed:Float,lifetime:Int) 
 	{
 		super();
@@ -29,7 +32,7 @@ class Effect extends Sprite implements ActiveObject
 	{
 		this.x = localX = x;
 		this.y = localY = y;
-		Main.currentLevel.addChild(this);
+		Main.currentLevel.objects.addChild(this);
 		Main.currentLevel.effects.push(this);
 		Main.currentLevel.activeObjects.push(this);
 	}

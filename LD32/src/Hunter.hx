@@ -157,7 +157,7 @@ class Hunter extends Sprite implements ActiveObject
 		addChild(shadow);
 		shadow.y = 0;
 		shadow.alpha = 0.6;
-		pic.y = -80;
+		pic.y = -50;
 		addChild(pic);
 	}
 	

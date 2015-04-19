@@ -33,7 +33,14 @@ class Tittle extends Sprite implements ActiveObject
 	
 	public function update():Void 
 	{
-		
+		if (MyMath.distance(Level.currentHero.localX, Level.currentHero.localY, x, y) < 50 && Level.currentHero.y < localY)
+		{
+			alpha = 0.5;
+		}
+		else
+		{
+			alpha = 0.8;
+		}
 	}
 	
 	public function init(x:Int, y:Int):Void 

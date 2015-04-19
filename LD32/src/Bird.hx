@@ -122,8 +122,8 @@ class Bird extends Sprite implements ActiveObject
 				}
 
 
-				Level.currentHero.health -= 5;
-				trace("Damage!");
+				Level.currentHero.health -= 20;
+				
 
 				free();
 			}

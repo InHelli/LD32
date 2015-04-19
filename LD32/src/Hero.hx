@@ -28,7 +28,7 @@ class Hero extends Sprite implements ActiveObject
 	public var moveRotation:Float;
 	public var shieldDeg:Float = 125;
 	public var localRotation:Float;
-	public var health:Float = 100;
+	public var health:Float = 50;
 	public var scores:Int = 0;
 	//public var localRotation:Float;
 	public function new() 
@@ -80,6 +80,7 @@ class Hero extends Sprite implements ActiveObject
 	
 	public function Damaged()
 	{
+		Main.currentLevel.redHit();
 		for (i in 0...25) {
 					var ps:Particles = new Particles( -1);
 					ps.init(Math.round(localX), Math.round(localY-70));
@@ -250,8 +251,6 @@ class Hero extends Sprite implements ActiveObject
 		shadow.graphics.drawCircle(0, 0, size);
 		shadow.graphics.endFill();
 		move();
-		if (this.health<100)
-		this.health += 0.025;
 		if(wallking)herobitmapData.update();
 	}
 	function move()

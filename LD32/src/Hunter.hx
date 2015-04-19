@@ -103,7 +103,7 @@ class Hunter extends Sprite implements ActiveObject
 				Level.currentHero.Damaged();
 
 				
-				Level.currentHero.health -= 10;
+				Level.currentHero.health -= 30;
 
 				free();
 			}

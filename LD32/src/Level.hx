@@ -1,6 +1,7 @@
 package ;
 
 import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
@@ -21,6 +22,7 @@ class Level extends Sprite
 	public var gameInterFace:Sprite;
 	public var objects:Sprite;
 	public var healthBar:Sprite;
+	public var redScreen:Bitmap;
 	
 	public function new() 
 	{
@@ -28,7 +30,7 @@ class Level extends Sprite
 		activeObjects = [];
 		bullets = [];
 		effects = [];
-
+		redScreen = new Bitmap(new BitmapData(800,480,false,0xff0000));
 		sound = new Audio();
 		this.addEventListener(Event.ADDED, added);
 		sound.playFon();
@@ -50,6 +52,8 @@ class Level extends Sprite
 		addChild(fon);
 		addChild(objects);
 		addChild(gameInterFace);
+		addChild(redScreen);
+		redScreen.alpha = 0;
 		healthBar.graphics.beginFill(0x2147AD);
 		healthBar.graphics.drawRect(0, 460, 8, 20);
 		healthBar.graphics.endFill();
@@ -85,9 +89,14 @@ class Level extends Sprite
 	}
 	
 	
+	public function redHit()
+	{
+		redScreen.alpha = 0.5;
+	}
 	
 	function onUpdate(e:Event)
 	{
+		if (redScreen.alpha > 0) redScreen.alpha -= 0.01;
 		healthBar.scaleX = Level.currentHero.health;
 		frame++;
 		for (obj in activeObjects)
@@ -118,7 +127,7 @@ class Level extends Sprite
 	{
 		
 		
-		if (frame % 200 == 0)
+		if (frame % 100 == 0)
 		{
 			
 			var TX:Float = -20 + Math.random() * 840;
@@ -136,7 +145,7 @@ class Level extends Sprite
 			
 		}
 		
-		if (frame % 500 == 0)
+		if (frame % 300 == 0)
 		{
 			
 			var TX:Float = -20 + Math.random() * 840;
@@ -154,7 +163,7 @@ class Level extends Sprite
 			
 		}
 		
-		if (frame % 450 == 0)
+		if (frame % 250 == 0)
 		{
 			
 			var TX:Float = -20 + Math.random() * 840;

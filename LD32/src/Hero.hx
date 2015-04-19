@@ -28,6 +28,8 @@ class Hero extends Sprite implements ActiveObject
 	public var moveRotation:Float;
 	public var shieldDeg:Float = 125;
 	public var localRotation:Float;
+	public var health:Float = 100;
+	public var scores:Int = 0;
 	//public var localRotation:Float;
 	public function new() 
 	{
@@ -248,6 +250,8 @@ class Hero extends Sprite implements ActiveObject
 		shadow.graphics.drawCircle(0, 0, size);
 		shadow.graphics.endFill();
 		move();
+		if (this.health<100)
+		this.health += 0.025;
 		if(wallking)herobitmapData.update();
 	}
 	function move()
@@ -303,6 +307,7 @@ class Hero extends Sprite implements ActiveObject
 			//trace(MyMath.betweenAnglesDeg(MyMath.toDegrees(Level.currentHero.getShieldAngel(Level.currentHero.mouseStep)), MyMath.toDegrees(localRotation)));
 			if (differ >= Level.currentHero.shieldDeg)
 			{
+				Audio.playRicoshet();
 				return true;
 			}
 			else

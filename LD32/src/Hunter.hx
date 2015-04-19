@@ -88,17 +88,22 @@ class Hunter extends Sprite implements ActiveObject
 		{
 			if(Level.currentHero.isHit(this))
 			{
+				Audio.playHit();
 				
 				for (i in 0...20) {
 					var ps:Particles = new Particles(1);
 					ps.init(Math.round(x+pic.x), Math.round(y+pic.y));
 				}
+				Level.currentHero.scores+=3;
 				free();
 				
 			}
 			else
 			{
 				Level.currentHero.Damaged();
+
+				
+				Level.currentHero.health -= 10;
 
 				free();
 			}

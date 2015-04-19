@@ -12,6 +12,7 @@ class Level extends Sprite
 {
 	public var activeObjects:Array<ActiveObject>;
 	public static var currentHero:Hero;
+	public var sound:Audio;
 	public var mouse_X:Float;
 	public var mouse_Y:Float;
 	public var bullets:Array<Bullet>;
@@ -19,12 +20,18 @@ class Level extends Sprite
 	public var fon:Bitmap;
 	public var gameInterFace:Sprite;
 	public var objects:Sprite;
+	public var healthBar:Sprite;
+	
 	public function new() 
 	{
 		super();
 		activeObjects = [];
 		bullets = [];
 		effects = [];
+
+		sound = new Audio();
+		this.addEventListener(Event.ADDED, added);
+		sound.playFon();
 		this.addEventListener(Event.ADDED,added);
 	}
 	
@@ -36,14 +43,23 @@ class Level extends Sprite
 		
 		fon = new Bitmap(PictersSource.tittle[1]);
 		objects = new Sprite();
+
+		healthBar = new Sprite();
 		gameInterFace = new Sprite();
-		
+
 		addChild(fon);
 		addChild(objects);
 		addChild(gameInterFace);
+		healthBar.graphics.beginFill(0x2147AD);
+		healthBar.graphics.drawRect(0, 460, 8, 20);
+		healthBar.graphics.endFill();
+		gameInterFace.addChild(healthBar);
 		//==Hero
 		currentHero = new Hero();
 		currentHero.init(400, 280);
+		
+		
+		
 		
 		
 		//==grass
@@ -72,6 +88,7 @@ class Level extends Sprite
 	
 	function onUpdate(e:Event)
 	{
+		healthBar.scaleX = Level.currentHero.health;
 		frame++;
 		for (obj in activeObjects)
 		{
@@ -176,6 +193,7 @@ class Level extends Sprite
 		removeChild(fon);
 		removeChild(objects);
 		removeChild(gameInterFace);
+		
 		
 	}
 	

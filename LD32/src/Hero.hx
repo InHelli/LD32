@@ -206,7 +206,7 @@ class Hero extends Sprite implements ActiveObject
 	
 	function onKey(press:Bool,e:KeyboardEvent)
 	{
-		wallking = press;
+		
 		keys[e.keyCode] = press;
 		
 	}
@@ -248,22 +248,27 @@ class Hero extends Sprite implements ActiveObject
 	{
 		var oldX:Float = localX;
 		var oldY:Float = localY;
+		wallking = false;
 		if (keys[87]) 
 		{
 			localY -= speed;
+			wallking = true;
 		}
 		else if (keys[83])
 		{
 			localY += speed;
+			wallking = true;
 		}
 		
 		if (keys[65]) 
 		{
 			localX -= speed;
+			wallking = true;
 		}
 		else if (keys[68])
 		{
 			localX += speed;
+			wallking = true;
 		}
 		moveRotation = MyMath.getAngle(oldX, oldY, localX, localY);
 		//trace(MyMath.toDegrees(moveRotation));
@@ -271,6 +276,7 @@ class Hero extends Sprite implements ActiveObject
 		this.y = localY;
 		heroPoint.x = localX + offset_X;
 		heroPoint.y = localY + offset_Y;
+		
 	}
 	
 	public function isHit(a:ActiveObject)

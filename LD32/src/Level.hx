@@ -12,6 +12,7 @@ class Level extends Sprite
 {
 	public var activeObjects:Array<ActiveObject>;
 	public static var currentHero:Hero;
+	public var sound:Audio;
 	public var mouse_X:Float;
 	public var mouse_Y:Float;
 	public var bullets:Array<Bullet>;
@@ -25,7 +26,9 @@ class Level extends Sprite
 		activeObjects = [];
 		bullets = [];
 		effects = [];
-		this.addEventListener(Event.ADDED,added);
+		sound = new Audio();
+		this.addEventListener(Event.ADDED, added);
+		sound.playFon();
 	}
 	
 	function added(e:Event)
@@ -43,6 +46,9 @@ class Level extends Sprite
 		//==Hero
 		currentHero = new Hero();
 		currentHero.init(400, 280);
+		
+		
+		
 		
 		
 		//==grass
@@ -157,6 +163,7 @@ class Level extends Sprite
 		removeChild(fon);
 		removeChild(objects);
 		removeChild(gameInterFace);
+		
 		
 	}
 	

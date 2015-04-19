@@ -25,6 +25,9 @@ class Bird extends Sprite implements ActiveObject
 	public var size:Float = 3;
 	
 	
+	
+	
+	
 	public function new() 
 	{
 		super();
@@ -89,7 +92,7 @@ class Bird extends Sprite implements ActiveObject
 		{
 			if(Level.currentHero.isHit(this))
 			{
-				
+				Audio.playHit();
 				free();
 				
 			}
@@ -145,6 +148,7 @@ class Bird extends Sprite implements ActiveObject
 	
 	public function init(x:Int, y:Int):Void 
 	{
+		
 		shadow.scaleY = 0.4;
 		this.x = localX = x;
 		this.y = localY = y;
@@ -157,6 +161,7 @@ class Bird extends Sprite implements ActiveObject
 		shadow.alpha = 0.6;
 		pic.y = -110;
 		addChild(pic);
+		
 		
 	}
 	
